@@ -1,11 +1,12 @@
 package tests.entities;
 import entities.Account;
+import org.junit.jupiter.api.Assertions;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
-import org.testng.annotations.TestInstance;
 import org.testng.asserts.Assertion;
 import tests.factory.AccountFactory;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTests{
 
@@ -23,7 +24,7 @@ public class AccountTests{
         account.deposit(amount);
 
         //ASSERT
-        AssertJUnit.assertEquals(expectedValue, account.getBalance());
+        Assertions.assertEquals(expectedValue, account.getBalance());
 
     }
 
@@ -39,7 +40,7 @@ public class AccountTests{
         account.deposit(amount);
 
         //ASSERT
-        AssertJUnit.assertEquals(expectedValue, account.getBalance());
+        Assertions.assertEquals(expectedValue, account.getBalance());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class AccountTests{
         account.deposit(amount);
 
         //Assert
-        AssertJUnit.assertEquals(expectedValue, account.getBalance());
+        Assertions.assertEquals(expectedValue, account.getBalance());
     }
 
     @Test
@@ -67,7 +68,7 @@ public class AccountTests{
         account.deposit(amount);
 
         //Assert
-        AssertJUnit.assertEquals(expectedValue, account.getBalance());
+        Assertions.assertEquals(expectedValue, account.getBalance());
     }
 
     @Test
@@ -81,7 +82,7 @@ public class AccountTests{
         double rescue = account.fullWithdraw();
 
         //Assert
-        AssertJUnit.assertEquals(actualBalance, rescue);
+        Assertions.assertEquals(actualBalance, rescue);
     }
 
     @Test
@@ -95,7 +96,7 @@ public class AccountTests{
         account.fullWithdraw();
 
         //Assert
-        AssertJUnit.assertTrue(finalBalance == account.getBalance());
+        Assertions.assertTrue(finalBalance == account.getBalance());
     }
 
     @Test
@@ -112,7 +113,8 @@ public class AccountTests{
 
         //Assert
         //AssertJUnit.assertEquals(finalBalance, account.getBalance());
-        Assert.assertEquals(finalBalance, balanceWithdraw);
+        Assertions.assertEquals(finalBalance, balanceWithdraw);
+
     }
 
     @Test
@@ -122,7 +124,7 @@ public class AccountTests{
         double withdrawSolicitation = 801.0;
 
         //Assert and Act
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Account account = AccountFactory.createAccount(actualBalance);
             account.withdraw(withdrawSolicitation);
         });
