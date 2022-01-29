@@ -1,12 +1,14 @@
 package tests.entities;
 import entities.Account;
+import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 import org.testng.annotations.TestInstance;
 import org.testng.asserts.Assertion;
 import tests.factory.AccountFactory;
 
-public class AccountTests {
+public class AccountTests{
+
 
     @Test
     public void depositShouldIncreaseBalanceWhenPositiveAmount(){
@@ -94,6 +96,36 @@ public class AccountTests {
 
         //Assert
         AssertJUnit.assertTrue(finalBalance == account.getBalance());
+    }
+
+    @Test
+    public void withdrawShouldDecreaseBalanceWhenSufficientBalance(){
+        //Arrange
+        double actualBalance = 800.0;
+        double withdrawSolicitation = 400.0;
+        double finalBalance = 400.0;
+
+        //Act
+        Account account = AccountFactory.createAccount(actualBalance);
+        account.withdraw(withdrawSolicitation);
+        double balanceWithdraw = account.getBalance();
+
+        //Assert
+        //AssertJUnit.assertEquals(finalBalance, account.getBalance());
+        Assert.assertEquals(finalBalance, balanceWithdraw);
+    }
+
+    @Test
+    public void withdrawShouldThrowExceptionWhenInsufficientBalance(){
+
+        double actualBalance = 800.0;
+        double withdrawSolicitation = 801.0;
+
+        //Assert and Act
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            Account account = AccountFactory.createAccount(actualBalance);
+            account.withdraw(withdrawSolicitation);
+        });
     }
 
 }
